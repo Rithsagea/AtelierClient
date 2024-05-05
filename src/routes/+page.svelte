@@ -7,6 +7,8 @@
 
 <h1>Atelier</h1>
 
+<a href={`/wstest`}> Websocket Test </a>
+
 <h2>Sheets</h2>
 
 <table>
