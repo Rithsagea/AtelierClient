@@ -5,7 +5,7 @@
 	export let sheet: Sheet;
 </script>
 
-<div class="card flex flex-col bg-slate-200 border-slate-400">
+<div class="card flex flex-col border-slate-400 bg-slate-200">
 	<h2>Ability Scores</h2>
 	<table>
 		<tr>
@@ -15,22 +15,16 @@
 		</tr>
 		{#each Abilities as ability}
 			<tr>
-				<td>
+				<td class="text-center">
 					{AbilityLabels[ability]}
 				</td>
-				<td>
+				<td class="text-center">
 					{sheet.abilityScores[ability]}
 				</td>
-				<td>
+				<td class="text-center">
 					{formatModifier(sheet.abilityModifiers[ability])}
 				</td>
 			</tr>
 		{/each}
 	</table>
 </div>
-
-<style>
-	td {
-		@apply text-center;
-	}
-</style>

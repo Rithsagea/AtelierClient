@@ -5,7 +5,7 @@
 	export let sheet: Sheet;
 </script>
 
-<div class="card flex flex-col bg-slate-200 border-slate-400">
+<div class="card flex flex-col border-slate-400 bg-slate-200">
 	<h2>Saving Throws</h2>
 	<table>
 		<tr>
@@ -15,18 +15,12 @@
 		</tr>
 		{#each Abilities as ability}
 			<tr>
-				<td
+				<td class="text-center"
 					><input type="radio" disabled checked={sheet.savingProficiencies.includes(ability)} /></td
 				>
-				<td>{formatModifier(sheet.savingModifiers[ability])}</td>
-				<td>{AbilityLabels[ability]}</td>
+				<td class="text-center">{formatModifier(sheet.savingModifiers[ability])}</td>
+				<td class="text-center">{AbilityLabels[ability]}</td>
 			</tr>
 		{/each}
 	</table>
 </div>
-
-<style>
-	td {
-		@apply text-center;
-	}
-</style>
