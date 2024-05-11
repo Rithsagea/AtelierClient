@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	h1 {
+		@apply text-center font-bold text-4xl;
+	}
+
+	h2 {
+		@apply text-center font-bold text-2xl;
+	}
+
+	.card {
+		@apply m-2 p-2 rounded-3xl border-4;
+	}
+}

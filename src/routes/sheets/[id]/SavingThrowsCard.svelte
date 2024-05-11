@@ -5,7 +5,7 @@
 	export let sheet: Sheet;
 </script>
 
-<div>
+<div class="card flex flex-col bg-slate-200 border-slate-400">
 	<h2>Saving Throws</h2>
 	<table>
 		<tr>
@@ -24,3 +24,9 @@
 		{/each}
 	</table>
 </div>
+
+<style>
+	td {
+		@apply text-center;
+	}
+</style>
