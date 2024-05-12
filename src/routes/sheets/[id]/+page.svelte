@@ -16,5 +16,5 @@
 		<SavingThrowsCard {sheet} />
 	</div>
 
-	<Chat />
+	<Chat user={sheet.id} />
 </div>

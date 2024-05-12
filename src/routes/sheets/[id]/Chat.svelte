@@ -1,6 +1,22 @@
 <script lang="ts">
+	import { env } from '$env/dynamic/public';
+	import { WebSocketConnection } from '$lib/WebSocket';
 	import Icon from '@iconify/svelte';
-	const messages = [...Array(100).keys()].map((i) => `Test asdfasdfsa f sdfasdf Message ${i}`);
+	import { writable } from 'svelte/store';
+
+	export let user: string;
+
+	let messages: string[] = [];
+	const messagesStore = writable<string[]>([]);
+	messagesStore.subscribe((s) => (messages = s));
+
+	const connection = new WebSocketConnection(`ws://${env.PUBLIC_API_URL}/ws`, user);
+	connection.addEventListener('chat', (e) => {
+		const data = (e as any).data;
+		messagesStore.update((messages) => [...messages, `[${data.sender}]: ${data.message}`]);
+	});
+
+	let chatInput: string;
 </script>
 
 <div class="flex h-screen flex-col bg-slate-200">
@@ -16,8 +32,12 @@
 	</div>
 
 	<div class="flex items-center">
-		<textarea class="m-2 box-border resize-none rounded-2xl border-4 border-slate-600 p-2" />
+		<textarea
+			bind:value={chatInput}
+			class="m-2 box-border resize-none rounded-2xl border-4 border-slate-600 p-2"
+		/>
 		<button
+			on:click={() => connection.sendMessage(chatInput)}
 			class="m-2 size-fit rounded-full border-4 border-slate-500 bg-slate-300 p-2 hover:bg-slate-400"
 		>
 			<Icon icon="mdi:paper-airplane" />

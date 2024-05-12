@@ -5,6 +5,6 @@ import type { PageLoad } from './$types';
 export const load: PageLoad<{
 	sheets: Sheet[];
 }> = async ({ fetch }) => {
-	const res = await fetch(`${env.PUBLIC_API_URL}/sheets`);
+	const res = await fetch(`http://${env.PUBLIC_API_URL}/sheets`);
 	return { sheets: (await res.json()) as Sheet[] };
 };
