@@ -10,10 +10,12 @@
 </script>
 
 <div class="flex h-full">
-	<div class="container">
-		<h1>Sheet Data</h1>
-		<AbilityScoreCard {sheet} />
-		<SavingThrowsCard {sheet} />
+	<div class="grid grid-cols-3">
+		<div>
+			<h1>Sheet Data</h1>
+			<AbilityScoreCard {sheet} />
+			<SavingThrowsCard {sheet} />
+		</div>
 	</div>
 
 	<Chat user={sheet.id} />

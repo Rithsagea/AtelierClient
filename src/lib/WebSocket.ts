@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import { env } from '$env/dynamic/public';
 
 export class WebsocketEvent extends Event {
 	readonly command: string;
@@ -48,4 +49,12 @@ export class WebSocketConnection extends EventTarget {
 	sendMessage(message: string) {
 		this.send('chat', message);
 	}
+}
+
+const websockets: Record<string, WebSocketConnection> = {};
+export function getWebsocket(user: string) {
+	if (!websockets[user]) {
+		websockets[user] = new WebSocketConnection(`ws://${env.PUBLIC_API_URL}/ws`, user);
+	}
+	return websockets[user];
 }
