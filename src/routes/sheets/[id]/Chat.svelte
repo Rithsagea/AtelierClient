@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { getWebsocket } from '$lib/WebSocket';
+	import { WebSocketConnection } from '$lib/WebSocket';
 	import Icon from '@iconify/svelte';
+	import { getContext } from 'svelte';
 	import { writable } from 'svelte/store';
-
-	export let user: string;
 
 	let messages: string[] = [];
 	const messagesStore = writable<string[]>([]);
 	messagesStore.subscribe((s) => (messages = s));
 
-	const connection = getWebsocket(user);
+	const connection = getContext<WebSocketConnection>('ws');
 	connection.addEventListener('chat', (e) => {
 		const data = (e as any).data;
 		messagesStore.update((messages) => [...messages, `[${data.sender}]: ${data.message}`]);

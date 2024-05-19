@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { Abilities, AbilityLabels, type Ability, type Sheet } from '$lib/Types';
 	import { formatModifier } from '$lib/Util';
+	import { WebSocketConnection } from '$lib/WebSocket';
+	import { getContext } from 'svelte';
 
 	export let sheet: Sheet;
 
+	const ws = getContext<WebSocketConnection>('ws');
 	function handleRoll(ability: Ability) {
 		console.log(`Rolling ability check ${ability}`);
+		ws.send('roll', { type: 'ability', ability: ability });
 	}
 </script>
 
