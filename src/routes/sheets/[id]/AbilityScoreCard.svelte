@@ -9,7 +9,7 @@
 	const ws = getContext<WebSocketConnection>('ws');
 	function handleRoll(ability: Ability) {
 		console.log(`Rolling ability check ${ability}`);
-		ws.send('roll', { type: 'ability', ability: ability });
+		ws.send('roll', { type: 'ability', value: ability });
 	}
 </script>
 
