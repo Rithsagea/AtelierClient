@@ -77,4 +77,5 @@ export interface Sheet {
 	savingProficiencies: Ability[];
 	skillModifiers: Record<Skill, number>;
 	skillProficiencies: Skill[];
+	views: any[];
 }

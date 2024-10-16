@@ -3,10 +3,8 @@
 	import { WebSocketConnection } from '$lib/WebSocket';
 	import { setContext } from 'svelte';
 	import type { PageData } from './$types';
-	import AbilityScoreCard from './AbilityScoreCard.svelte';
 	import Chat from './Chat.svelte';
-	import SavingThrowsCard from './SavingThrowsCard.svelte';
-	import SkillScoreCard from './SkillScoreCard.svelte';
+	import ViewCollection from '$lib/components/ViewCollection.svelte';
 
 	export let data: PageData;
 
@@ -20,9 +18,7 @@
 	<div class="grid grid-cols-3">
 		<div>
 			<h1>Sheet Data</h1>
-			<AbilityScoreCard {sheet} />
-			<SavingThrowsCard {sheet} />
-			<SkillScoreCard {sheet} />
+			<ViewCollection views={sheet.views} />
 		</div>
 	</div>
 
