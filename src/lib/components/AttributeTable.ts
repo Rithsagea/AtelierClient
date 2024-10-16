@@ -5,7 +5,6 @@ export interface AttributeTableData {
 }
 
 export interface AttributeTableItem {
-	proficiency: boolean;
 	value: number;
 	modifier: number;
 	label: string;
