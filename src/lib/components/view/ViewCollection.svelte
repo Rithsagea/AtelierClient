@@ -1,12 +1,14 @@
 <script lang="ts">
 	import AttributeList from './AttributeList.svelte';
 	import AttributeTable from './AttributeTable.svelte';
+	import DisplayColumn from './DisplayColumn.svelte';
 
 	export let views: any[];
 
 	const ViewTypes: Record<string, any> = {
 		AttributeList: AttributeList,
-		AttributeTable: AttributeTable
+		AttributeTable: AttributeTable,
+		DisplayColumn: DisplayColumn
 	};
 </script>
 

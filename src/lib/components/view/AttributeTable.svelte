@@ -1,6 +1,20 @@
+<script lang="ts" context="module">
+	interface AttributeTableData {
+		title: string;
+		items: AttributeTableItem[];
+		attributeType: string;
+	}
+
+	interface AttributeTableItem {
+		value: number;
+		modifier: number;
+		label: string;
+		attributeValue: string;
+	}
+</script>
+
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { AttributeTableData, AttributeTableItem } from './AttributeTable';
 	import type { WebSocketConnection } from '$lib/WebSocket';
 	import { formatModifier } from '$lib/Util';
 

@@ -1,8 +1,22 @@
+<script lang="ts" context="module">
+	interface AttributeListData {
+		title: string;
+		items: AttributeListItem[];
+		attributeType: string;
+	}
+
+	interface AttributeListItem {
+		proficiency: boolean;
+		modifier: number;
+		label: string;
+		attributeValue: string;
+	}
+</script>
+
 <script lang="ts">
 	import { formatModifier } from '$lib/Util';
 	import type { WebSocketConnection } from '$lib/WebSocket';
 	import { getContext } from 'svelte';
-	import type { AttributeListData, AttributeListItem } from './AttributeList';
 
 	export let data: AttributeListData;
 
