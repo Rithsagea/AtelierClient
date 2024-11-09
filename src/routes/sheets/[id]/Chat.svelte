@@ -9,8 +9,7 @@
 	messagesStore.subscribe((s) => (messages = s));
 
 	const connection = getContext<WebSocketConnection>('ws');
-	connection.addEventListener('chat', (e) => {
-		const data = (e as any).data;
+	connection.on('chat', (data) => {
 		messagesStore.update((messages) => [...messages, `[${data.sender}]: ${data.message}`]);
 	});
 
@@ -33,7 +32,8 @@
 		<textarea
 			bind:value={chatInput}
 			class="m-2 box-border flex-auto resize-none rounded-2xl border-4 border-slate-600 p-2"
-		/>
+		>
+		</textarea>
 		<button
 			on:click={() => connection.sendMessage(chatInput)}
 			class="m-2 size-fit rounded-full border-4 border-slate-500 bg-slate-300 p-2 hover:bg-slate-400"

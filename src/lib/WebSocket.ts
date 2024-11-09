@@ -1,24 +1,41 @@
 import { browser } from '$app/environment';
 
-export class WebsocketEvent extends Event {
-	readonly command: string;
-	readonly data: any;
+type Listener<T> = (e: T) => void;
 
-	constructor(command: string, data: any) {
-		super(command);
+class Emitter<TypeMap extends { [key: string]: object }> {
+	listeners: {
+		[Key in keyof TypeMap]?: Set<Listener<TypeMap[Key]>>;
+	};
 
-		this.command = command;
-		this.data = data;
+	constructor() {
+		this.listeners = {};
+	}
+
+	on<K extends keyof TypeMap>(event: K, listener: (data: TypeMap[K]) => void) {
+		if (!this.listeners[event]) this.listeners[event] = new Set();
+		this.listeners[event]?.add(listener);
+	}
+
+	dispatchEvent<K extends keyof TypeMap>(event: K, data: TypeMap[K]) {
+		this.listeners[event]?.forEach((l) => l(data));
 	}
 }
 
-export class WebSocketConnection extends EventTarget {
+interface ChatData {
+	sender: string;
+	message: string;
+}
+
+type EventMap = {
+	chat: ChatData;
+};
+
+export class WebSocketConnection extends Emitter<EventMap> {
 	readonly ws?: WebSocket;
 	readonly user: string;
 
 	constructor(url: string, user: string) {
 		super();
-
 		this.user = user;
 
 		if (browser) {
@@ -31,12 +48,12 @@ export class WebSocketConnection extends EventTarget {
 
 			this.ws.onmessage = (e) => {
 				const { command, data } = JSON.parse(e.data);
-				this.dispatchEvent(new WebsocketEvent(command, data));
+				this.dispatchEvent(command, data);
 			};
 		}
 	}
 
-	send(command: string, data: any) {
+	send<T>(command: string, data: T) {
 		if (browser) this.ws?.send(JSON.stringify({ command, data }));
 	}
 
