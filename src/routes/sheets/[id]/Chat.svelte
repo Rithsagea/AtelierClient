@@ -4,16 +4,14 @@
 	import { getContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	let messages: string[] = [];
-	const messagesStore = writable<string[]>([]);
-	messagesStore.subscribe((s) => (messages = s));
+	const messages = writable<string[]>([]);
 
 	const connection = getContext<WebSocketConnection>('ws');
 	connection.on('chat', (data) => {
-		messagesStore.update((messages) => [...messages, `[${data.sender}]: ${data.message}`]);
+		$messages = [...$messages, `[${data.sender}]: ${data.message}`];
 	});
 
-	let chatInput: string;
+	let chatInput: string = $state('');
 </script>
 
 <div class="flex h-screen flex-auto flex-col bg-slate-200">
@@ -21,7 +19,7 @@
 
 	<!-- Messages -->
 	<div class="flex-auto overflow-scroll">
-		{#each messages as message}
+		{#each $messages as message}
 			<div class="m-2 rounded-3xl border-2 border-slate-400 bg-slate-300 p-2">
 				<p>{message}</p>
 			</div>
@@ -35,7 +33,7 @@
 		>
 		</textarea>
 		<button
-			on:click={() => connection.sendMessage(chatInput)}
+			onclick={() => connection.sendMessage(chatInput)}
 			class="m-2 size-fit rounded-full border-4 border-slate-500 bg-slate-300 p-2 hover:bg-slate-400"
 		>
 			<Icon icon="mdi:paper-airplane" />

@@ -3,7 +3,7 @@
 	import AttributeTable from './AttributeTable.svelte';
 	import DisplayColumn from './DisplayColumn.svelte';
 
-	export let views: any[];
+	let { views }: { views: any[] } = $props();
 
 	const ViewTypes: Record<string, any> = {
 		AttributeList: AttributeList,
@@ -13,5 +13,6 @@
 </script>
 
 {#each views as view}
-	<svelte:component this={ViewTypes[view.id]} data={view.data} />
+	{@const ViewComponent = ViewTypes[view.id]}
+	<ViewComponent {...view.data} />
 {/each}

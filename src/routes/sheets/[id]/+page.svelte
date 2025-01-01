@@ -2,12 +2,10 @@
 	import { env } from '$env/dynamic/public';
 	import { WebSocketConnection } from '$lib/WebSocket';
 	import { setContext } from 'svelte';
-	import type { PageData } from './$types';
 	import Chat from './Chat.svelte';
 	import ViewCollection from '$lib/components/view/ViewCollection.svelte';
 
-	export let data: PageData;
-
+	const { data } = $props();
 	const { sheet } = data;
 
 	const connection = new WebSocketConnection(`ws://${env.PUBLIC_API_URL}/ws`, sheet.id);
